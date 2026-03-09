@@ -21,11 +21,18 @@
 // };
 
 // Loading All Issues
-
+const btnAll = document.getElementById("btn-all");
+const btnOpen = document.getElementById("btn-open");
+const btnClosed = document.getElementById("btn-closed");
+const issueCounter = document.getElementById("issue-counter");
+const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
 const loadingAllIssues = async () => {
-  const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+  btnOpen.classList.remove("btn-active");
+  btnClosed.classList.remove("btn-active");
+  btnAll.classList.add("btn-active");
   const response = await fetch(url);
   const data = await response.json();
+  issueCounter.innerText = `${data.data.length} Issues`;
   showLoadedData(data.data);
 };
 // {
@@ -45,11 +52,12 @@ const loadingAllIssues = async () => {
 // }
 const showLoadedData = (issues) => {
   const cards = document.getElementById("cards");
+  cards.innerHTML = "";
   for (iss of issues) {
     const card = document.createElement("div");
     card.innerHTML = `<div
           id="card"
-          class="bg-[#FFFFFF] p-4 rounded-lg drop-shadow-xl space-y-3 border-t-5 h-full border-t-green-500"
+          class="bg-[#FFFFFF] p-4 rounded-lg drop-shadow-xl space-y-3 border-t-5 h-full ${iss.status === "open" ? `border-t-green-500` : `border-t-red-500`} "
         >
         <div class="flex justify-between">
             <div>${iss.status === "open" ? `<img src="assets/Open-Status.png">` : `<img src="assets/Closed- Status .png">`}</div>
@@ -88,3 +96,35 @@ const showLoadedData = (issues) => {
   }
 };
 loadingAllIssues();
+
+// Loading Open Issues
+const loadingOpenIssues = async () => {
+  btnOpen.classList.add("btn-active");
+  btnClosed.classList.remove("btn-active");
+  btnAll.classList.remove("btn-active");
+  const response = await fetch(url);
+  const data = await response.json();
+  showOpenIssues(data.data);
+};
+
+const showOpenIssues = async (openIss) => {
+  const data = openIss.filter((data) => data.status === "open");
+  issueCounter.innerText = `${data.length} Issues`;
+  showLoadedData(data);
+};
+
+// Loading Closed Issues
+const loadingClosedIssues = async () => {
+  btnOpen.classList.remove("btn-active");
+  btnClosed.classList.add("btn-active");
+  btnAll.classList.remove("btn-active");
+  const response = await fetch(url);
+  const data = await response.json();
+  showClosedIssues(data.data);
+};
+
+const showClosedIssues = async (openIss) => {
+  const data = openIss.filter((data) => data.status === "closed");
+  issueCounter.innerText = `${data.length} Issues`;
+  showLoadedData(data);
+};

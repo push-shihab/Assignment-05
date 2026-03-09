@@ -99,8 +99,25 @@
     <section
       class="flex justify-start gap-2 mt-[60px] w-10/12 mx-auto bg-[#FFFFFF] drop-shadow-md p-6 rounded-lg"
     >
-      <button class="btn">All</button><button class="btn">Open</button
-      ><button class="btn">Closed</button>
+      <button
+        id="btn-all"
+        onclick="loadingAllIssues()"
+        class="btn btn-primary btn-active btn-outline"
+      >
+        All</button
+      ><button
+        id="btn-open"
+        onclick="loadingOpenIssues()"
+        class="btn btn-primary btn-outline"
+      >
+        Open</button
+      ><button
+        id="btn-closed"
+        onclick="loadingClosedIssues()"
+        class="btn btn-primary btn-outline"
+      >
+        Closed
+      </button>
     </section>
 
     <!-- All Issues -->
@@ -114,7 +131,7 @@
             <img src="assets/Aperture.png" />
           </div>
           <div>
-            <p class="font-semibold text-[20px]">50 Issues</p>
+            <p class="font-semibold text-[20px]" id="issue-counter"></p>
             <p class="text-[#64748B]">Track and manage your project issues</p>
           </div>
         </div>
