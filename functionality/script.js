@@ -50,8 +50,8 @@ const loadingAllIssues = async () => {
 //     "createdAt": "2024-01-15T10:30:00Z",
 //     "updatedAt": "2024-01-15T10:30:00Z"
 // }
+const cards = document.getElementById("cards");
 const showLoadedData = (issues) => {
-  const cards = document.getElementById("cards");
   cards.innerHTML = "";
   for (iss of issues) {
     const card = document.createElement("div");
@@ -127,4 +127,25 @@ const showClosedIssues = async (openIss) => {
   const data = openIss.filter((data) => data.status === "closed");
   issueCounter.innerText = `${data.length} Issues`;
   showLoadedData(data);
+};
+
+// Search Functionality
+
+const searchIssue = async () => {
+  const searchField = document.getElementById("search-field");
+  const input = searchField.value.trim().toLowerCase();
+  btnOpen.classList.remove("btn-active");
+  btnClosed.classList.remove("btn-active");
+  btnAll.classList.remove("btn-active");
+  const response = await fetch(url);
+  const data = await response.json();
+  const search = data.data.filter((info) => info.title.includes(input));
+  issueCounter.innerText = `${search.length} Issues`;
+  showLoadedData(search);
+  if (search.length === 0) {
+    const card = document.createElement("div");
+    card.innerHTML = `<h1 class="text-center w-full">No Issues Found</h1>`;
+    cards.classList.remove("grid");
+    cards.appendChild(card);
+  }
 };
