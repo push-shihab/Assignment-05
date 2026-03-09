@@ -37,7 +37,10 @@
   </head>
   <body>
     <!-- Login Form -->
-    <section class="min-h-[100vh] flex justify-center items-center hidden">
+    <!-- <section
+      class="min-h-[100vh] flex justify-center items-center"
+      id="login-form"
+    >
       <fieldset
         class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-8 text-center"
       >
@@ -46,37 +49,86 @@
         <p class="text-[#64748B]">Sign in to manage your issues</p>
 
         <label class="label text-black">Username</label>
-        <input type="email" class="input" placeholder="Enter Username" />
+        <input
+          id="username"
+          type="email"
+          class="input"
+          placeholder="Enter Username"
+        />
 
         <label class="label text-black">Password</label>
-        <input type="password" class="input" placeholder="Enter Password" />
+        <input
+          id="password"
+          type="password"
+          class="input"
+          placeholder="Enter Password"
+        />
 
-        <button class="btn btn-neutral mt-4">Login</button>
+        <button onclick="userLogin()" class="btn btn-neutral mt-4">
+          Login
+        </button>
         <div class="font-extrabold text-lg text-blue-700">
           <p>Default Username: admin</p>
           <p>Default Password: admin123</p>
         </div>
       </fieldset>
-    </section>
+    </section> -->
 
     <!-- Main Section -->
-    <!-- Navbar -->
-    <div class="navbar bg-base-100 shadow-sm">
-      <div class="flex-1 justify-center items-center text-2xl">
-        <a class="btn btn-ghost text-xl"
-          ><img class="w-9" src="assets/github-logo.png" />GitHub Issues
-          Tracker</a
-        >
+    <section id="main-section" class="bg-[#F8FAFC]">
+      <!-- Navbar -->
+      <div class="navbar bg-base-100 shadow-sm">
+        <div class="flex-1 justify-center items-center text-2xl">
+          <a class="btn btn-ghost text-xl"
+            ><img class="w-9" src="assets/github-logo.png" />GitHub Issues
+            Tracker</a
+          >
+        </div>
+        <div class="flex gap-2">
+          <input
+            type="text"
+            placeholder="Search"
+            class="input input-bordered w-24 md:w-auto"
+          />
+          <button class="btn btn-primary">New Issue</button>
+        </div>
       </div>
-      <div class="flex gap-2">
-        <input
-          type="text"
-          placeholder="Search"
-          class="input input-bordered w-24 md:w-auto"
-        />
-        <button class="btn btn-primary">New Issue</button>
+    </section>
+
+    <!-- Issue Devider -->
+    <section
+      class="flex justify-start gap-2 mt-[60px] w-10/12 mx-auto bg-[#FFFFFF] drop-shadow-md p-6 rounded-lg"
+    >
+      <button class="btn">All</button><button class="btn">Open</button
+      ><button class="btn">Closed</button>
+    </section>
+
+    <!-- All Issues -->
+    <section
+      class="mt-4 drop-shadow-md rounded-lg bg-[#FFFFFF] w-10/12 mx-auto"
+    >
+      <!-- Tracking Issue -->
+      <div class="p-6 flex justify-between">
+        <div class="flex justify-center items-center gap-2">
+          <div class="bg-[#ECE4FF] p-2 rounded-full">
+            <img src="assets/Aperture.png" />
+          </div>
+          <div>
+            <p class="font-semibold text-[20px]">50 Issues</p>
+            <p class="text-[#64748B]">Track and manage your project issues</p>
+          </div>
+        </div>
+        <div class="flex justify-center items-center font-medium gap-2">
+          <img src="assets/Open-Status.png" /><span>Open</span>
+          <img src="assets/Closed- Status .png" /><span>Closed</span>
+        </div>
       </div>
-    </div>
+      <!-- Issue Info -->
+      <div
+        id="cards"
+        class="bg-[#FBFBFB] p-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6"
+      ></div>
+    </section>
 
     <!-- Script for Functioanlity -->
     <script src="functionality/script.js"></script>
