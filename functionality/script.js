@@ -35,29 +35,14 @@ const loadingAllIssues = async () => {
   issueCounter.innerText = `${data.data.length} Issues`;
   showLoadedData(data.data);
 };
-// {
-//     "id": 1,
-//     "title": "Fix navigation menu on mobile devices",
-//     "description": "The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.",
-//     "status": "open",
-//     "labels": [
-//         "bug",
-//         "help wanted"
-//     ],
-//     "priority": "high",
-//     "author": "john_doe",
-//     "assignee": "jane_smith",
-//     "createdAt": "2024-01-15T10:30:00Z",
-//     "updatedAt": "2024-01-15T10:30:00Z"
-// }
 const cards = document.getElementById("cards");
 const showLoadedData = (issues) => {
   cards.innerHTML = "";
   for (iss of issues) {
     const card = document.createElement("div");
-    card.innerHTML = `<div
+    card.innerHTML = `<div onclick="openIssueInfo(${iss.id})"
           id="card"
-          class="bg-[#FFFFFF] p-4 rounded-lg drop-shadow-xl space-y-3 border-t-5 h-full ${iss.status === "open" ? `border-t-green-500` : `border-t-red-500`} "
+          class="bg-[#FFFFFF] p-4 rounded-lg drop-shadow-xl space-y-3 border-t-5 h-full ${iss.status === "open" ? `border-t-green-500` : `border-t-red-500`} cursor-pointer hover:${iss.status === "open" ? `bg-green-100` : `bg-red-100`}"
         >
         <div class="flex justify-between">
             <div>${iss.status === "open" ? `<img src="assets/Open-Status.png">` : `<img src="assets/Closed- Status .png">`}</div>
@@ -148,4 +133,49 @@ const searchIssue = async () => {
     cards.classList.remove("grid");
     cards.appendChild(card);
   }
+};
+
+// Opening Issue Info
+const openIssueInfo = async (id) => {
+  const infoContainer = document.getElementById("info-container");
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  const info = data.data;
+  infoContainer.innerHTML = `
+    <div class="space-y-5">
+      <h3 class="text-2xl">${info.title}</h3>
+      ${info.status === "open" ? `<span class="bg-green-500 text-white px-2 py-1 rounded-full">Opened</span>` : `<span class="bg-red-500 text-white py-1 px-2 rounded-full">Closed</span>`}
+      <span>&bull; Opened by ${info.author} &bull; ${info.createdAt}</span>
+      <div
+            class="flex gap-3 items-center mt-5"
+          >
+            <span
+              class="text-[#EF4444] border px-1 py-.5 border-[#ef444486] bg-[#ef44442b] rounded-full"
+              ><i class="fa-solid fa-bug mr-2 font-medium text-[12px]"></i
+              >${iss.labels[0]}</span
+            >
+            <span
+              class="text-[#D97706] px-1 py-.5 border border-[#d977069e] bg-[#d977063b] rounded-full"
+              ><i class="mr-2 fa-solid fa-hands-holding-circle"></i>${iss.labels[1]}</span
+            >
+          </div>
+          <div>
+            <p class="text-[#64748B]">${info.description}</P>
+          </div>
+          <div class="bg-[#64748B10] grid grid-cols-2 items-center p-5">
+            <div>
+              <p>Assignee:</p>
+              <p>${info.author}</P>
+            </div>
+            <div class="space-y-2">
+              <p>Priority:</p>
+              <span class="text-red-500 bg-red-200 rounded-full px-2 py-1.5">
+              ${info.priority}
+            </span>
+            </div>
+          </div>
+    </div>
+  `;
+  document.getElementById("my_modal_5").showModal();
 };
