@@ -23,7 +23,9 @@ const userLogin = () => {
             <p>Wrong credentials. Please try again!</p>
           </div>
     `;
-    credentials.appendChild(wrongCredential);
+    if (credentials.childElementCount < 2) {
+      credentials.appendChild(wrongCredential);
+    }
   }
 };
 
