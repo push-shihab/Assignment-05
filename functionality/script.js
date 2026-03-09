@@ -26,7 +26,18 @@ const btnOpen = document.getElementById("btn-open");
 const btnClosed = document.getElementById("btn-closed");
 const issueCounter = document.getElementById("issue-counter");
 const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+
+const loadingSpinner = (status) => {
+  if (status) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("cards").classList.add("hidden");
+  } else {
+    document.getElementById("spinner").classList.add("hidden");
+    document.getElementById("cards").classList.remove("hidden");
+  }
+};
 const loadingAllIssues = async () => {
+  loadingSpinner(true);
   btnOpen.classList.remove("btn-active");
   btnClosed.classList.remove("btn-active");
   btnAll.classList.add("btn-active");
@@ -34,6 +45,7 @@ const loadingAllIssues = async () => {
   const data = await response.json();
   issueCounter.innerText = `${data.data.length} Issues`;
   showLoadedData(data.data);
+  loadingSpinner(false);
 };
 const cards = document.getElementById("cards");
 const showLoadedData = (issues) => {
@@ -64,11 +76,11 @@ const showLoadedData = (issues) => {
             <span
               class="text-[#EF4444] border px-2 py-1.5 border-[#ef444486] bg-[#ef44442b] rounded-full"
               ><i class="fa-solid fa-bug mr-2 font-medium text-[12px]"></i
-              >${iss.labels[0]}</span
+              >${typeof iss.labels[0] === "undefined" ? `Not found` : iss.labels[0]}</span
             >
             <span
               class="text-[#D97706] px-2 py-1.5 border border-[#d977069e] bg-[#d977063b] rounded-full"
-              ><i class="mr-2 fa-solid fa-hands-holding-circle"></i>${iss.labels[1]}</span
+              ><i class="mr-2 fa-solid fa-hands-holding-circle"></i>${typeof iss.labels[1] === "undefined" ? `Not found` : iss.labels[1]}</span
             >
           </div>
           <div class="p-4 text-[#64748B] grid grid-cols-1">
@@ -84,12 +96,14 @@ loadingAllIssues();
 
 // Loading Open Issues
 const loadingOpenIssues = async () => {
+  loadingSpinner(true);
   btnOpen.classList.add("btn-active");
   btnClosed.classList.remove("btn-active");
   btnAll.classList.remove("btn-active");
   const response = await fetch(url);
   const data = await response.json();
   showOpenIssues(data.data);
+  loadingSpinner(false);
 };
 
 const showOpenIssues = async (openIss) => {
@@ -100,12 +114,14 @@ const showOpenIssues = async (openIss) => {
 
 // Loading Closed Issues
 const loadingClosedIssues = async () => {
+  loadingSpinner(true);
   btnOpen.classList.remove("btn-active");
   btnClosed.classList.add("btn-active");
   btnAll.classList.remove("btn-active");
   const response = await fetch(url);
   const data = await response.json();
   showClosedIssues(data.data);
+  loadingSpinner(false);
 };
 
 const showClosedIssues = async (openIss) => {
@@ -117,6 +133,7 @@ const showClosedIssues = async (openIss) => {
 // Search Functionality
 
 const searchIssue = async () => {
+  loadingSpinner(true);
   const searchField = document.getElementById("search-field");
   const input = searchField.value.trim().toLowerCase();
   btnOpen.classList.remove("btn-active");
@@ -133,6 +150,7 @@ const searchIssue = async () => {
     cards.classList.remove("grid");
     cards.appendChild(card);
   }
+  loadingSpinner(false);
 };
 
 // Opening Issue Info
@@ -146,18 +164,18 @@ const openIssueInfo = async (id) => {
     <div class="space-y-5">
       <h3 class="text-2xl">${info.title}</h3>
       ${info.status === "open" ? `<span class="bg-green-500 text-white px-2 py-1 rounded-full">Opened</span>` : `<span class="bg-red-500 text-white py-1 px-2 rounded-full">Closed</span>`}
-      <span>&bull; Opened by ${info.author} &bull; ${info.createdAt}</span>
+      <span>&bull; ${info.status === "open" ? `Opened` : `Closed`} by ${info.author} &bull; ${info.createdAt}</span>
       <div
             class="flex gap-3 items-center mt-5"
           >
             <span
               class="text-[#EF4444] border px-1 py-.5 border-[#ef444486] bg-[#ef44442b] rounded-full"
               ><i class="fa-solid fa-bug mr-2 font-medium text-[12px]"></i
-              >${iss.labels[0]}</span
+              >${typeof iss.labels[0] === "undefined" ? `Not found` : iss.labels[0]}</span
             >
             <span
               class="text-[#D97706] px-1 py-.5 border border-[#d977069e] bg-[#d977063b] rounded-full"
-              ><i class="mr-2 fa-solid fa-hands-holding-circle"></i>${iss.labels[1]}</span
+              ><i class="mr-2 fa-solid fa-hands-holding-circle"></i>${typeof iss.labels[1] === "undefined" ? `Not found` : iss.labels[1]}</span
             >
           </div>
           <div>
