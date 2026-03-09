@@ -17,9 +17,68 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- DaisyUi|Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles/style.css" />
     <title>Github Issue Tracker</title>
   </head>
   <body>
-    <h1>Welcome</h1>
+    <!-- Login Form -->
+    <section class="min-h-[100vh] flex justify-center items-center hidden">
+      <fieldset
+        class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-8 text-center"
+      >
+        <img src="assets/github-logo.png" class="mx-auto" />
+        <h2 class="font-semibold text-2xl">GitHub Issues Tracker</h2>
+        <p class="text-[#64748B]">Sign in to manage your issues</p>
+
+        <label class="label text-black">Username</label>
+        <input type="email" class="input" placeholder="Enter Username" />
+
+        <label class="label text-black">Password</label>
+        <input type="password" class="input" placeholder="Enter Password" />
+
+        <button class="btn btn-neutral mt-4">Login</button>
+        <div class="font-extrabold text-lg text-blue-700">
+          <p>Default Username: admin</p>
+          <p>Default Password: admin123</p>
+        </div>
+      </fieldset>
+    </section>
+
+    <!-- Main Section -->
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 shadow-sm">
+      <div class="flex-1 justify-center items-center text-2xl">
+        <a class="btn btn-ghost text-xl"
+          ><img class="w-9" src="assets/github-logo.png" />GitHub Issues
+          Tracker</a
+        >
+      </div>
+      <div class="flex gap-2">
+        <input
+          type="text"
+          placeholder="Search"
+          class="input input-bordered w-24 md:w-auto"
+        />
+        <button class="btn btn-primary">New Issue</button>
+      </div>
+    </div>
+
+    <!-- Script for Functioanlity -->
+    <script src="functionality/script.js"></script>
   </body>
 </html>
