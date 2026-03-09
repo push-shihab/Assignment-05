@@ -1,24 +1,31 @@
 // User Credential Validation
-// const user = {
-//   userName: "admin",
-//   password: "admin123",
-// };
+const user = {
+  userName: "admin",
+  password: "admin123",
+};
 
-// const userLogin = () => {
-//   const loginForm = document.getElementById("login-form");
-//   const mainSection = document.getElementById("main-section");
-//   const username = document
-//     .getElementById("username")
-//     .value.trim()
-//     .toLowerCase();
-//   const password = document.getElementById("password").value.trim();
-//   if (username === user.userName && password === user.password) {
-//     loginForm.classList.add("hidden");
-//     mainSection.classList.remove("hidden");
-//   } else {
-//     alert("Wrong credentials. Please try again");
-//   }
-// };
+const userLogin = () => {
+  const loginForm = document.getElementById("login-form");
+  const mainSection = document.getElementById("main-section");
+  const username = document
+    .getElementById("username")
+    .value.trim()
+    .toLowerCase();
+  const password = document.getElementById("password").value.trim();
+  if (username === user.userName && password === user.password) {
+    loginForm.classList.add("hidden");
+    mainSection.classList.remove("hidden");
+  } else {
+    const credentials = document.getElementById("credentials");
+    const wrongCredential = document.createElement("div");
+    wrongCredential.innerHTML = `
+          <div class="font-bold text-lg text-red-500">
+            <p>Wrong credentials. Please try again!</p>
+          </div>
+    `;
+    credentials.appendChild(wrongCredential);
+  }
+};
 
 // Loading All Issues
 const btnAll = document.getElementById("btn-all");
@@ -171,11 +178,11 @@ const openIssueInfo = async (id) => {
             <span
               class="text-[#EF4444] border px-1 py-.5 border-[#ef444486] bg-[#ef44442b] rounded-full"
               ><i class="fa-solid fa-bug mr-2 font-medium text-[12px]"></i
-              >${typeof iss.labels[0] === "undefined" ? `Not found` : iss.labels[0]}</span
+              >${typeof info.labels[0] === "undefined" ? `Not found` : info.labels[0]}</span
             >
             <span
               class="text-[#D97706] px-1 py-.5 border border-[#d977069e] bg-[#d977063b] rounded-full"
-              ><i class="mr-2 fa-solid fa-hands-holding-circle"></i>${typeof iss.labels[1] === "undefined" ? `Not found` : iss.labels[1]}</span
+              ><i class="mr-2 fa-solid fa-hands-holding-circle"></i>${typeof info.labels[1] === "undefined" ? `Not found` : info.labels[1]}</span
             >
           </div>
           <div>

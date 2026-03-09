@@ -37,7 +37,7 @@
   </head>
   <body>
     <!-- Login Form -->
-    <!-- <section
+    <section
       class="min-h-[100vh] flex justify-center items-center"
       id="login-form"
     >
@@ -67,106 +67,109 @@
         <button onclick="userLogin()" class="btn btn-neutral mt-4">
           Login
         </button>
-        <div class="font-extrabold text-lg text-blue-700">
-          <p>Default Username: admin</p>
-          <p>Default Password: admin123</p>
+        <div id="credentials">
+          <div class="font-extrabold text-lg text-blue-300">
+            <p>Default Username: admin</p>
+            <p>Default Password: admin123</p>
+          </div>
         </div>
       </fieldset>
-    </section> -->
-
+    </section>
     <!-- Main Section -->
-    <section id="main-section" class="bg-[#F8FAFC]">
-      <!-- Navbar -->
-      <div class="navbar bg-base-100 shadow-sm">
-        <div class="flex-1 justify-center items-center text-2xl">
-          <a class="btn btn-ghost text-xl"
-            ><img class="w-9" src="assets/github-logo.png" />GitHub Issues
-            Tracker</a
-          >
-        </div>
-        <div class="flex gap-2">
-          <input
-            type="text"
-            placeholder="Search"
-            class="input input-bordered w-24 md:w-auto"
-            id="search-field"
-          />
-          <button onclick="searchIssue()" class="btn btn-primary">
-            Search Issue
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Issue Devider -->
-    <section
-      class="flex justify-start gap-2 mt-[60px] w-10/12 mx-auto bg-[#FFFFFF] drop-shadow-md p-6 rounded-lg"
-    >
-      <button
-        id="btn-all"
-        onclick="loadingAllIssues()"
-        class="btn btn-primary btn-active btn-outline"
-      >
-        All</button
-      ><button
-        id="btn-open"
-        onclick="loadingOpenIssues()"
-        class="btn btn-primary btn-outline"
-      >
-        Open</button
-      ><button
-        id="btn-closed"
-        onclick="loadingClosedIssues()"
-        class="btn btn-primary btn-outline"
-      >
-        Closed
-      </button>
-    </section>
-
-    <!-- All Issues -->
-    <section
-      class="mt-4 drop-shadow-md rounded-lg bg-[#FFFFFF] w-10/12 mx-auto"
-    >
-      <!-- Tracking Issue -->
-      <div class="p-6 flex justify-between">
-        <div class="flex justify-center items-center gap-2">
-          <div class="bg-[#ECE4FF] p-2 rounded-full">
-            <img src="assets/Aperture.png" />
+    <section id="main-section" class="hidden">
+      <section class="bg-[#F8FAFC]">
+        <!-- Navbar -->
+        <div class="navbar bg-base-100 shadow-sm">
+          <div class="flex-1 justify-center items-center text-2xl">
+            <a class="btn btn-ghost text-xl"
+              ><img class="w-9" src="assets/github-logo.png" />GitHub Issues
+              Tracker</a
+            >
           </div>
-          <div>
-            <p class="font-semibold text-[20px]" id="issue-counter"></p>
-            <p class="text-[#64748B]">Track and manage your project issues</p>
+          <div class="flex gap-2">
+            <input
+              type="text"
+              placeholder="Search"
+              class="input input-bordered w-24 md:w-auto"
+              id="search-field"
+            />
+            <button onclick="searchIssue()" class="btn btn-primary">
+              Search Issue
+            </button>
           </div>
         </div>
-        <div class="flex justify-center items-center font-medium gap-2">
-          <img src="assets/Open-Status.png" /><span>Open</span>
-          <img src="assets/Closed- Status .png" /><span>Closed</span>
-        </div>
-      </div>
+      </section>
 
-      <!-- Loading Spinner -->
-      <div id="spinner" class="flex justify-center items-center py-20 hidden">
-        <span class="loading loading-ball loading-xl"></span>
-      </div>
-      <!-- Issue Info -->
-      <div
-        id="cards"
-        class="bg-[#FBFBFB] p-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6"
-      ></div>
+      <!-- Issue Devider -->
+      <section
+        class="flex justify-start gap-2 mt-[60px] w-10/12 mx-auto bg-[#FFFFFF] drop-shadow-md p-6 rounded-lg"
+      >
+        <button
+          id="btn-all"
+          onclick="loadingAllIssues()"
+          class="btn btn-primary btn-active btn-outline"
+        >
+          All</button
+        ><button
+          id="btn-open"
+          onclick="loadingOpenIssues()"
+          class="btn btn-primary btn-outline"
+        >
+          Open</button
+        ><button
+          id="btn-closed"
+          onclick="loadingClosedIssues()"
+          class="btn btn-primary btn-outline"
+        >
+          Closed
+        </button>
+      </section>
+
+      <!-- All Issues -->
+      <section
+        class="mt-4 drop-shadow-md rounded-lg bg-[#FFFFFF] w-10/12 mx-auto"
+      >
+        <!-- Tracking Issue -->
+        <div class="p-6 flex justify-between">
+          <div class="flex justify-center items-center gap-2">
+            <div class="bg-[#ECE4FF] p-2 rounded-full">
+              <img src="assets/Aperture.png" />
+            </div>
+            <div>
+              <p class="font-semibold text-[20px]" id="issue-counter"></p>
+              <p class="text-[#64748B]">Track and manage your project issues</p>
+            </div>
+          </div>
+          <div class="flex justify-center items-center font-medium gap-2">
+            <img src="assets/Open-Status.png" /><span>Open</span>
+            <img src="assets/Closed- Status .png" /><span>Closed</span>
+          </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="spinner" class="flex justify-center items-center py-20 hidden">
+          <span class="loading loading-ball loading-xl"></span>
+        </div>
+        <!-- Issue Info -->
+        <div
+          id="cards"
+          class="bg-[#FBFBFB] p-6 mb-20 grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6"
+        ></div>
+      </section>
+
+      <!-- Issue Modal -->
+      <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+          <div id="info-container"></div>
+          <div class="modal-action">
+            <form method="dialog">
+              <!-- if there is a button in form, it will close the modal -->
+              <button class="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </section>
-
-    <!-- Issue Modal -->
-    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-      <div class="modal-box">
-        <div id="info-container"></div>
-        <div class="modal-action">
-          <form method="dialog">
-            <!-- if there is a button in form, it will close the modal -->
-            <button class="btn">Close</button>
-          </form>
-        </div>
-      </div>
-    </dialog>
 
     <!-- Script for Functioanlity -->
     <script src="functionality/script.js"></script>
